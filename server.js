@@ -1,20 +1,23 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+// PLACEHODER PROTECTED ROUTES
+
 const authRoutes = require('./routes/auth');
-const crudRoutes = require('./routes/crud'); // Example protected routes
+const crudRoutes = require('./routes/crud');
 
 const app = express();
 
 // --- MIDDLEWARE ---
-app.use(cors()); // Allow cross-origin requests from your React app
-app.use(express.json()); // Parse incoming JSON request bodies
 
-// --- ROUTES ---
+app.use(cors());
+app.use(express.json());
+
+// --- PLACEHOLDER ROUTES ---
 app.use('/api/auth', authRoutes);
-app.use('/api/items', crudRoutes); // CRUD routes usually go here
+app.use('/api/items', crudRoutes);
 
 // --- GLOBAL ERROR HANDLING ---
 // This catches any errors passed to next(err)
