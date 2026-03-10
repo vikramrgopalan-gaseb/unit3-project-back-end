@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
         minlength: 6
     }
-};
+});
 
 // Hash password before saving to database
 UserSchema.pre('save', async function(next) {
@@ -30,7 +30,7 @@ UserSchema.pre('save', async function(next) {
     }
 });
 
-// Compare passwords during login
+// Compare passwords during login - build this out more, if not remove this (VIK)
 UserSchema.methods.comparePassword = async function(typedPassword) {
     return await bcrypt.compare(typedPassword, this.password);
 };

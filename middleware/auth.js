@@ -5,7 +5,11 @@ const authenticateToken = (req, res, next) => {
     // Authorization
 
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    let token = 0
+
+    if (authHeader) {
+     token = authHeader.split(' ')[1]
+    }
 
     // Filter
 
@@ -22,9 +26,11 @@ const authenticateToken = (req, res, next) => {
         
         
         next();
+
     } catch (error) {
         
-        res.status(403).json({ message: 'Invalid or expired token.' });
+       return res.status(401).json({ error: error.message });
+
     }
 };
 
