@@ -6,6 +6,7 @@ const cors = require('cors');
 // PLACEHODER PROTECTED ROUTES
 
 const topicRoutes = require('./routes/topics');
+const classesRoutes = require('./routes/Classes')
 const authRoutes = require('./routes/auth');
 const crudRoutes = require('./routes/crud');
 
@@ -19,6 +20,7 @@ app.use(express.json());
 // --- PLACEHOLDER ROUTES ---
 
 app.use('/api/topics', topicRoutes);
+app.use('/classes', classesRoutes)
 app.use('/auth', authRoutes);
 app.use('/api/items', crudRoutes);
 
