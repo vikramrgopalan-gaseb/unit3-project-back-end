@@ -3,7 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// PLACEHODER PROTECTED ROUTES
+// UNPROTECTED HOME ROUTE
+
+const homeRouter = require('./routes/home');
+
+// PROTECTED ROUTES
 
 const topicRoutes = require('./routes/topics');
 const classesRoutes = require('./routes/Classes')
@@ -17,7 +21,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- PLACEHOLDER ROUTES ---
+// --- APP ROUTES ---
+
+app.use('/home', homeRouter); 
 
 app.use('/api/topics', topicRoutes);
 app.use('/classes', classesRoutes)
