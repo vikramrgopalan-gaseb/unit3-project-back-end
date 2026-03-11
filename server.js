@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // --- PLACEHOLDER ROUTES ---
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/api/items', crudRoutes);
 
 // --- GLOBAL ERROR HANDLING ---
