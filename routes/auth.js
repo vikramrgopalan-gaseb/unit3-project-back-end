@@ -28,7 +28,29 @@ router.post('/sign-up', async (req, res) => {
 
 // Signin user
 router.post('/sign-in', async (req, res) => {
-    
+    try {
+        // Check if user exists
+        const user = await User.findOne({ username: req.body.username });
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+
+        // Check if password is correct
+        const isMatch = bcrypt.compareSync(req.body.password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+
+        // Create the payload
+        const payload = { username: user.username, _id: user._id };
+
+        // Sign and send the token
+        const token = jwt.sign({ payload }, process.env.JWT_SECRET);
+        res.status(200).json({ token });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 module.exports = router;
