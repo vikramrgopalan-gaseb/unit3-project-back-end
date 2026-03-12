@@ -17,6 +17,9 @@ const classSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    enrollment: {
+        type: Array
+    },
 
 })
 
