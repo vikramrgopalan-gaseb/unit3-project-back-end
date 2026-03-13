@@ -11,11 +11,11 @@ router.get('/', async (req, res) => {
         
         // list the topics in order with the newest created topic first
 
-        const topics = await Topic.find().populate('originator', 'username').sort({ createdAt: -1 });
+        const topics = await Topic.find().sort({ createdAt: -1 });
 
         // list the classes in order with the newest created class first
 
-        const classes = await Class.find().populate('originator', 'username').sort({ createdAt: -1 });
+        const classes = await Class.find().sort({ createdAt: -1 });
 
         res.status(200).json({ topics, classes });
 

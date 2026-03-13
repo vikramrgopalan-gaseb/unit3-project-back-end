@@ -12,7 +12,7 @@ const homeRouter = require('./routes/home');
 const topicRoutes = require('./routes/topics');
 const classesRoutes = require('./routes/Classes')
 const authRoutes = require('./routes/auth');
-const crudRoutes = require('./routes/crud');
+// const crudRoutes = require('./routes/crud');
 
 const app = express();
 
@@ -25,12 +25,13 @@ app.use(express.json());
 
 app.use('/home', homeRouter); 
 
-app.use('/api/topics', topicRoutes);
+app.use('/topics', topicRoutes);
 app.use('/classes', classesRoutes)
 app.use('/auth', authRoutes);
-app.use('/api/items', crudRoutes);
+// app.use('/api/items', crudRoutes);
 
 // --- GLOBAL ERROR HANDLING ---
+
 // This catches any errors passed to next(err)
 app.use((err, req, res, next) => {
     console.error(err.stack);
