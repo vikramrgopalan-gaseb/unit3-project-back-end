@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // UNPROTECTED HOME ROUTE
 
-const homeRouter = require('./routes/home');
+const homeRouter = require('./routes/homepage');
 
 // PROTECTED ROUTES
 
