@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
         minlength: 6
     }
+
 });
 
 // Hash password before saving to database
