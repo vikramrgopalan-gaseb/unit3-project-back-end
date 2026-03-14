@@ -4,7 +4,11 @@ const User = require('../models/User');
 const router = express.Router();
 const bcrypt = require('bcrypt')
 
-// Signup user
+const saltRounds = 12
+
+// Signup user --- LEITH - THIS IS WHERE YOU CAN ADD SALTROUNDS
+
+
 router.post('/sign-up', async (req, res) => {
     try {
         const userInDatabase = await User.findOne({ username: req.body.username})
@@ -26,31 +30,26 @@ router.post('/sign-up', async (req, res) => {
     }
 });
 
-// Signin user
+// SIGN IN USER
+
 router.post('/sign-in', async (req, res) => {
     try {
-        // Check if user exists
-        const user = await User.findOne({ username: req.body.username });
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid username or password' });
+        const user = await User.findOne({ username: req.body.username })
+        if(!user) {
+            return res.json(401).json({ err: 'invalid credentials' })
         }
 
-        // Check if password is correct
-        const isMatch = bcrypt.compareSync(req.body.password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ error: 'Invalid username or password' });
+        const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password)
+        if(!isPasswordCorrect) {
+            return res.status(401).json({ err: 'invalid credentials' })
         }
+        const payload = { username: user.username, _id: user._id }
 
-        // Create the payload
-        const payload = { username: user.username, _id: user._id };
-
-        // Sign and send the token
-        const token = jwt.sign({ payload }, process.env.JWT_SECRET);
-        res.status(200).json({ token });
-
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        const token = jwt.sign({ payload }, process.env.JWT_SECRET)
+        res.status(200).json({ token })
+    } catch (err) {
+        res.status(500).json({ err: err.message })
     }
-});
+})
 
 module.exports = router;

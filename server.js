@@ -1,3 +1,5 @@
+// IMPORTS
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,6 +14,7 @@ const homeRouter = require('./routes/homepage');
 const topicRoutes = require('./routes/topics');
 const classesRoutes = require('./routes/Classes')
 const authRoutes = require('./routes/auth');
+
 // const crudRoutes = require('./routes/crud');
 
 const app = express();
@@ -28,6 +31,7 @@ app.use('/home', homeRouter);
 app.use('/topics', topicRoutes);
 app.use('/classes', classesRoutes)
 app.use('/auth', authRoutes);
+
 // app.use('/api/items', crudRoutes);
 
 // --- GLOBAL ERROR HANDLING ---
