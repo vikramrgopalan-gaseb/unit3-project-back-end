@@ -7,15 +7,15 @@ const cors = require('cors');
 
 // UNPROTECTED HOME ROUTE
 
-const homeRouter = require('./routes/homepage');
+const homepageRoute = require('./routes/homepage');
 
 // PROTECTED ROUTES
 
-const topicRoutes = require('./routes/topics');
-const classesRoutes = require('./routes/Classes')
-const authRoutes = require('./routes/auth');
+const authRoute = require('./routes/auth');
+const classesRoute = require('./routes/Classes');
+const topicsRoute = require('./routes/topics');
 
-// const crudRoutes = require('./routes/crud');
+// EXPRESS
 
 const app = express();
 
@@ -26,13 +26,11 @@ app.use(express.json());
 
 // --- APP ROUTES ---
 
-app.use('/home', homeRouter); 
+app.use('/', homepageRoute); 
 
-app.use('/topics', topicRoutes);
-app.use('/classes', classesRoutes)
-app.use('/auth', authRoutes);
-
-// app.use('/api/items', crudRoutes);
+app.use('/auth', authRoute);
+app.use('/topics', topicsRoute);
+app.use('/classes', classesRoute);
 
 // --- GLOBAL ERROR HANDLING ---
 
