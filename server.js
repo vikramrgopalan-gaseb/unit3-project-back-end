@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const verifyToken = require('./middleware/verify-token');
 
 // UNPROTECTED HOME ROUTE
 
@@ -23,6 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+// app.use(verifyToken())
 
 // --- APP ROUTES ---
 
@@ -44,9 +46,13 @@ app.use((err, req, res, next) => {
 
 // --- DATABASE CONNECTION ---
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Server running on port ${process.env.PORT}`);
+    
+app.listen(process.env.PORT, () => {
+
+console.log(`Server running on port ${process.env.PORT}`);
+
         });
-    })
-    .catch(err => console.error('MongoDB connection error:', err));
+
+mongoose.connection.on('error', err => {
+    console.log(err);
+});
