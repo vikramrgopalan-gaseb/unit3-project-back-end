@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const TopicSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  author: { type: String, required: true },
+  originator: { type: String, required: true },
   
   upvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   
