@@ -8,8 +8,8 @@ function verifyToken (req, res, next) {
         req.user = decoded.payload
 
         next()
-    } catch (error) {
-        res.status(401).json({ error: 'invalid token' })
+    } catch (err) {
+        res.status(401).json({ err: 'invalid token' })
     }
 }
 
