@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const verifyToken = require('../middleware/verify-token')
 const Class = require('../models/Class')
+const { model } = require('mongoose')
 
 router.post('/create-class', verifyToken, async (req, res) => {
     try {
@@ -59,3 +60,5 @@ router.delete('/:classId', verifyToken, async (req, res) => {
         }        
     }
 })
+
+module.exports = router;
