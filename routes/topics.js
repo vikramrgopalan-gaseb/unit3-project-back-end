@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+const verifyToken = require('../middleware/verify-token')
 const Topic = require('../models/Topic');
 
 // CREATE
 
 router.post('/create-topic', async (req, res) => {
   try {
-    const topicData = { ...req.body, originator: req.user._id };
-    const newTopic = new Topic(req.body);
+    const newTopic = new Topic({...req.body, originator: req.user._id });
+
     const savedTopic = await newTopic.save();
     res.status(201).json(savedTopic);
+    
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
