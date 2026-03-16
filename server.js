@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan')
 
 // UNPROTECTED HOME ROUTE
 
@@ -23,6 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'))
 
 // --- APP ROUTES ---
 
@@ -44,9 +46,5 @@ app.use((err, req, res, next) => {
 
 // --- DATABASE CONNECTION ---
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Server running on port ${process.env.PORT}`);
-        });
-    })
-    .catch(err => console.error('MongoDB connection error:', err));
+
+app.listen(process.env.PORT)

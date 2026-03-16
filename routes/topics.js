@@ -7,9 +7,7 @@ const Topic = require('../models/Topic');
 
 router.post('/create-topic', async (req, res) => {
   try {
-    const newTopic = new Topic({...req.body, originator: req.user._id });
-
-    const savedTopic = await newTopic.save();
+    const savedTopic = await Topic.create(req.body);
     res.status(201).json(savedTopic);
     
   } catch (err) {
