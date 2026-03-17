@@ -37,7 +37,7 @@ router.put('/:classId/enroll', verifyToken, async (req, res) => {
             throw new Error('Class not found')
         }
 
-        const studentInClass = enrolledClass.enrollment.findOne({ _id: req.body._id })
+        const studentInClass = enrolledClass.enrollment.find((student) => student._id === req.body._id)
         if(studentInClass) {
             return res.status(409).json({ error: 'User already enrolled in class'})
         }
@@ -63,7 +63,7 @@ router.put('/:classId/disenroll', verifyToken, async (req, res) => {
         }
 
         const indexOfStudent = disenrolledClass.enrollment.findIndex((student) => student._id === req.body._id)
-        if(!indexOfStudent) {
+        if(indexOfStudent === -1) {
             res.status(404)
             throw new Error('Student not found')
         }
