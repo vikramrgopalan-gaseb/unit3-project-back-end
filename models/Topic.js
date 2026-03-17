@@ -5,9 +5,9 @@ const TopicSchema = new mongoose.Schema({
   description: { type: String, required: true },
   originator: { type: String, required: true },
   
-  upvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  upvotes: {type: Array},
   
-  downvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+  downvotes: {type: Array}
 
 });
 

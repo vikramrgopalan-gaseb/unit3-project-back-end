@@ -89,11 +89,14 @@ router.post('/:id/upvote', verifyToken, async (req, res) => {
 
         // Remove user from downvotes if they are there
         // Create a new array without the current user's ID
-        topic.downvotes = topic.downvotes.filter(id => !id.equals(userId));
+        const indexOfDownvoteId = topic.downvotes.findIndex((id) => id === userId);
+        if(indexOfDownvoteId !== -1) {
+            topic.downvotes.splice(indexOfDownvoteId, 1)
+        }
 
         // Add to upvotes ONLY if they aren't already in the list
         // Use .some() to check if the ID exists in the array
-        const alreadyUpvoted = topic.upvotes.some(id => id.equals(userId));
+        const alreadyUpvoted = topic.upvotes.some((id) => id === userId);
         
         if (!alreadyUpvoted) {
             topic.upvotes.push(userId);
@@ -101,7 +104,7 @@ router.post('/:id/upvote', verifyToken, async (req, res) => {
 
         // Manually save the document back to MongoDB
         await topic.save();
-        res.json(topic);
+        res.status(200).json(topic);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -115,10 +118,13 @@ router.post('/:id/downvote', verifyToken, async (req, res) => {
         const userId = req.body._id;
 
         // Remove user from upvotes
-        topic.upvotes = topic.upvotes.filter(id => !id.equals(userId));
+        const indexOfUpvoteId = topic.upvotes.findIndex((id) => id === userId);
+        if(indexOfUpvoteId !== -1) {
+            topic.upvotes.splice(indexOfUpvoteId, 1)
+        }
 
         // Add to downvotes if not already there
-        const alreadyDownvoted = topic.downvotes.some(id => id.equals(userId));
+        const alreadyDownvoted = topic.downvotes.some((id) => id === userId);
         
         if (!alreadyDownvoted) {
             topic.downvotes.push(userId);
@@ -126,7 +132,7 @@ router.post('/:id/downvote', verifyToken, async (req, res) => {
 
         // Save changes
         await topic.save();
-        res.json(topic);
+        res.status(200).json(topic);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
