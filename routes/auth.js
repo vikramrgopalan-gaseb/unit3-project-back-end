@@ -6,9 +6,6 @@ const bcrypt = require('bcrypt')
 
 const saltRounds = 12
 
-// Signup user --- LEITH - THIS IS WHERE YOU CAN ADD SALTROUNDS
-
-
 router.post('/sign-up', async (req, res) => {
     try {
         const userInDatabase = await User.findOne({ username: req.body.username})
